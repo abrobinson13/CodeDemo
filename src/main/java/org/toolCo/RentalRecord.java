@@ -3,7 +3,7 @@ package org.toolCo;
 import java.time.LocalDate;
 
 // In an enterprise operation, this would be a db table.
-public class rentalRecord {
+public class RentalRecord {
     private Tool toolBeingRented;
     private Integer rentalDurationDays;
     private LocalDate checkoutDate;

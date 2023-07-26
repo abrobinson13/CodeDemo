@@ -125,6 +125,15 @@ public class Checkout {
         return discountPercent;
     }
 
+    public RentalRecord gatherUserInput(RentalRecord customerRental){
+        customerRental.setToolBeingRented( selectTool() );
+        customerRental.setRentalDurationDays( selectRentalDuration() );
+        customerRental.setCheckoutDate( selectCheckoutDate() );
+        customerRental.setFormattedCheckoutDate( formatCheckoutDate(customerRental.getCheckoutDate()) );
+        customerRental.setDiscountPercent( selectDiscountPercent() );
+
+        return customerRental;
+    }
     public LocalDate calculateReturnDate(LocalDate checkoutDate, Integer rentalDurationDays) {
         return checkoutDate.plusDays(rentalDurationDays);
     }
@@ -170,5 +179,25 @@ public class Checkout {
         //ToDo remove print debugging
         System.out.println("chargeDays: " + chargeDays);
         return chargeDays;
+    }
+
+    public RentalRecord doFinalCalculations(RentalRecord customerRental){
+        customerRental.setReturnDate( calculateReturnDate(customerRental.getCheckoutDate(), customerRental.getRentalDurationDays()) );
+        customerRental.setFormattedReturnDate( formatReturnDate(customerRental.getReturnDate()) );
+        customerRental.setDailyRentalCharge( customerRental.getToolBeingRented().getType().getDailyCharge() );
+        customerRental.setChargeDays( calculateChargeDays(customerRental.getCheckoutDate(),
+                customerRental.getReturnDate(),
+                customerRental.getRentalDurationDays(),
+                customerRental.getToolBeingRented().getType().getWeekendCharge(),
+                customerRental.getToolBeingRented().getType().getHolidayCharge()
+        ) );
+        double preDiscountChargeUnrounded = customerRental.getDailyRentalCharge() * customerRental.getChargeDays();
+        customerRental.setPreDiscountCharge( Math.round(preDiscountChargeUnrounded * 100.0) / 100.0 );
+        double discountAmountUnrounded = (customerRental.getDiscountPercent()/100.00) * customerRental.getPreDiscountCharge();
+        customerRental.setDiscountAmount( Math.round(discountAmountUnrounded * 100.0) / 100.0 );
+        double finalChargeUnrounded = customerRental.getPreDiscountCharge() - customerRental.getDiscountAmount();
+        customerRental.setFinalCharge( Math.round(finalChargeUnrounded * 100.0) / 100.0 );
+
+        return customerRental;
     }
 }
