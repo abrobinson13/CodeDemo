@@ -94,7 +94,12 @@ public class RentalRecord {
     }
 
     public String getFormattedPreDiscountCharge() {
-        return "$"+this.getPreDiscountCharge().toString();
+        int decimalPlaces = this.getPreDiscountCharge().toString().substring(this.getPreDiscountCharge().toString().indexOf('.')+1).length();
+        String formattedTwoDecimalPlaces = "$"+this.getPreDiscountCharge().toString();
+        if(decimalPlaces < 2){
+            formattedTwoDecimalPlaces = formattedTwoDecimalPlaces+"0";
+        }
+        return formattedTwoDecimalPlaces;
     }
 
     public Double getDiscountPercent() {
@@ -106,6 +111,9 @@ public class RentalRecord {
     }
 
     public String getFormattedDiscountPercent(){
+        if(discountPercent != null && (discountPercent < 0 || discountPercent > 100)){
+            throw new RuntimeException("Discount percent is not in the range 0-100.");
+        }
         int decimalPointIndex = this.getDiscountPercent().toString().indexOf('.');
         return this.getDiscountPercent().toString().substring(0,decimalPointIndex)+"%";
     }
@@ -119,7 +127,12 @@ public class RentalRecord {
     }
 
     public String getFormattedDiscountAmount(){
-        return "$"+this.getDiscountAmount().toString();
+        int decimalPlaces = this.getDiscountAmount().toString().substring(this.getDiscountAmount().toString().indexOf('.')+1).length();
+        String formattedTwoDecimalPlaces = "$"+this.getDiscountAmount().toString();
+        if(decimalPlaces < 2){
+            formattedTwoDecimalPlaces = formattedTwoDecimalPlaces+"0";
+        }
+        return formattedTwoDecimalPlaces;
     }
 
     public Double getFinalCharge() {
@@ -131,7 +144,12 @@ public class RentalRecord {
     }
 
     public String getFormattedFinalCharge(){
-        return "$"+this.getFinalCharge().toString();
+        int decimalPlaces = this.getFinalCharge().toString().substring(this.getFinalCharge().toString().indexOf('.')+1).length();
+        String formattedTwoDecimalPlaces = "$"+this.getFinalCharge().toString();
+        if(decimalPlaces < 2){
+            formattedTwoDecimalPlaces = formattedTwoDecimalPlaces+"0";
+        }
+        return formattedTwoDecimalPlaces;
     }
 
     public void printRentalAgreement(){

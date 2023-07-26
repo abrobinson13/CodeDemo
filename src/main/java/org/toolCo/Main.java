@@ -8,6 +8,8 @@ public class Main {
 
         Inventory inventory = new Inventory();
         RentalRecord customerRental = new RentalRecord();
+
+        //Create inventory list
         ArrayList<Tool> inventoryList = inventory.createSampleInventory();
 
         Checkout checkout = new Checkout(inventoryList);

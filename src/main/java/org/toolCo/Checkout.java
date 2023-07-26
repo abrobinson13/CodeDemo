@@ -96,8 +96,6 @@ public class Checkout {
             }
         }while(!Objects.equals(yesNo, "y") && !Objects.equals(yesNo, "n"));
 
-        //ToDo remove print line debugging
-        System.out.println("Checkout date: " + checkoutDate);
         return checkoutDate;
     }
 
@@ -157,8 +155,6 @@ public class Checkout {
             //i.e. the rental will never be > 184 days (Jan01 - July4)
             String checkoutYearYY = dtf.format(checkoutDate).substring(6);
             LocalDate julyFourthCheckoutYear = LocalDate.parse("07/04/" + checkoutYearYY, dtf);
-            //ToDo remove print debugging
-            System.out.println("julyFourthCheckoutYear: " + dtf.format(julyFourthCheckoutYear));
             LocalDate julyFourthObservanceCheckoutYear = julyFourthCheckoutYear;
             if (julyFourthCheckoutYear.getDayOfWeek() == DayOfWeek.SATURDAY) {
                 julyFourthObservanceCheckoutYear = julyFourthCheckoutYear.minusDays(1);
@@ -170,14 +166,12 @@ public class Checkout {
             if (!checkoutDate.isAfter(julyFourthObservanceCheckoutYear)) {
                 //Once again, not efficient, but it works and is sufficient for this exercise.
                 for(int i = 0; !checkoutDate.plusDays(i).isEqual(returnDate); i++){
-                    if(checkoutDate.plusDays(i) == julyFourthObservanceCheckoutYear){
+                    if(checkoutDate.plusDays(i).isEqual(julyFourthObservanceCheckoutYear)){
                         chargeDays--;
                     }
                 }
             }
         }
-        //ToDo remove print debugging
-        System.out.println("chargeDays: " + chargeDays);
         return chargeDays;
     }
 
