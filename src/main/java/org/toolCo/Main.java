@@ -1,8 +1,8 @@
-package org.toolRental;
+package org.toolCo;
 
 import java.util.ArrayList;
 
-import static org.toolRental.ToolBrandConstants.*;
+import static org.toolCo.ToolBrandConstants.*;
 
 public class Main {
 

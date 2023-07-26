@@ -1,4 +1,4 @@
-package org.toolRental;
+package org.toolCo;
 
 public class ToolType {
     private String typeName;

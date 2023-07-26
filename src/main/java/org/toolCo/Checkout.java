@@ -1,4 +1,4 @@
-package org.toolRental;
+package org.toolCo;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
