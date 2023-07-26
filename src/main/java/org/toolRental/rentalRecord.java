@@ -65,6 +65,10 @@ public class rentalRecord {
         this.dailyRentalCharge = dailyRentalCharge;
     }
 
+    public String getFormattedDailyRentalCharge() {
+        return "$"+this.getDailyRentalCharge().toString();
+    }
+
     public String getFormattedReturnDate() {
         return formattedReturnDate;
     }
@@ -89,12 +93,21 @@ public class rentalRecord {
         this.preDiscountCharge = preDiscountCharge;
     }
 
+    public String getFormattedPreDiscountCharge() {
+        return "$"+this.getPreDiscountCharge().toString();
+    }
+
     public Double getDiscountPercent() {
         return discountPercent;
     }
 
     public void setDiscountPercent(Double discountPercent) {
         this.discountPercent = discountPercent;
+    }
+
+    public String getFormattedDiscountPercent(){
+        int decimalPointIndex = this.getDiscountPercent().toString().indexOf('.');
+        return this.getDiscountPercent().toString().substring(0,decimalPointIndex)+"%";
     }
 
     public Double getDiscountAmount() {
@@ -105,6 +118,10 @@ public class rentalRecord {
         this.discountAmount = discountAmount;
     }
 
+    public String getFormattedDiscountAmount(){
+        return "$"+this.getDiscountAmount().toString();
+    }
+
     public Double getFinalCharge() {
         return finalCharge;
     }
@@ -113,20 +130,25 @@ public class rentalRecord {
         this.finalCharge = finalCharge;
     }
 
+    public String getFormattedFinalCharge(){
+        return "$"+this.getFinalCharge().toString();
+    }
+
     public void printRentalAgreement(){
         System.out.println(
+                "\nRENTAL AGREEMENT: \n" +
                 "Tool code: " + this.getToolBeingRented().getCode() + "\n" +
-                "Tool type: " + this.getToolBeingRented().getType() + "\n" +
+                "Tool type: " + this.getToolBeingRented().getType().getTypeName() + "\n" +
                 "Tool brand: " + this.getToolBeingRented().getBrand() + "\n" +
                 "Rental days: " + this.getRentalDurationDays() + "\n" +
                 "Checkout date: " + this.getFormattedCheckoutDate() + "\n" +
                 "Due date: " + this.getFormattedReturnDate() + "\n" +
-                "Daily rental charge: " + this.getDailyRentalCharge() + "\n" +
+                "Daily rental charge: " + this.getFormattedDailyRentalCharge() + "\n" +
                 "Charge days: " + this.getChargeDays() + "\n" +
-                "Pre-discount charge: " + this.getPreDiscountCharge() + "\n" +
-                "Discount percent: " + this.getDiscountPercent() + "\n" +
-                "Discount amount: " + this.getDiscountAmount() + "\n" +
-                "Final charge: " + this.getFinalCharge()
+                "Pre-discount charge: " + this.getFormattedPreDiscountCharge() + "\n" +
+                "Discount percent: " + this.getFormattedDiscountPercent() + "\n" +
+                "Discount amount: " + this.getFormattedDiscountAmount() + "\n" +
+                "Final charge: " + this.getFormattedFinalCharge()
         );
     }
 }
