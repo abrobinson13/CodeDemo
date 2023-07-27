@@ -82,11 +82,11 @@ public class CheckoutTest {
 
         customerRental2 = checkout.doFinalCalculations(customerRental4);
         assertEquals("09/09/15", customerRental4.getFormattedReturnDate());
-        assertEquals(Integer.valueOf(4), customerRental4.getChargeDays());
-        assertEquals("$11.96", customerRental4.getFormattedPreDiscountCharge());
+        assertEquals(Integer.valueOf(3), customerRental4.getChargeDays());
+        assertEquals("$8.97", customerRental4.getFormattedPreDiscountCharge());
         assertEquals("0%", customerRental4.getFormattedDiscountPercent());
         assertEquals("$0.00", customerRental4.getFormattedDiscountAmount());
-        assertEquals("$11.96", customerRental4.getFormattedFinalCharge());
+        assertEquals("$8.97", customerRental4.getFormattedFinalCharge());
     }
     @Test
     public void doFinalCalculations_Test5() {

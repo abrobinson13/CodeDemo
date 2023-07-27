@@ -140,7 +140,7 @@ public class Checkout {
                                        Boolean weekendCharge, Boolean holidayCharge) {
         Integer chargeDays = rentalDays;
         if(!weekendCharge){
-            //This is not efficient, but it works and is sufficient for this exercise.
+            //This is not efficient for long rental periods, but it works and is sufficient for this exercise.
             //Iterate through the days of the rental, if weekend day, then subtract a day from chargeDays.
             for(int i = 0; !checkoutDate.plusDays(i).isEqual(returnDate); i++){
                 if(checkoutDate.plusDays(i).getDayOfWeek() == DayOfWeek.SATURDAY ||
@@ -151,8 +151,7 @@ public class Checkout {
 
         }
         if(!holidayCharge) {
-            //We're going to assume that if July 4th of the checkout year has passed, we're not going to encounter it.
-            //i.e. the rental will never be > 184 days (Jan01 - July4)
+            //July 4th
             String checkoutYearYY = dtf.format(checkoutDate).substring(6);
             LocalDate julyFourthCheckoutYear = LocalDate.parse("07/04/" + checkoutYearYY, dtf);
             LocalDate julyFourthObservanceCheckoutYear = julyFourthCheckoutYear;
@@ -161,12 +160,29 @@ public class Checkout {
             } else if (julyFourthCheckoutYear.getDayOfWeek() == DayOfWeek.SUNDAY) {
                 julyFourthObservanceCheckoutYear = julyFourthCheckoutYear.plusDays(1);
             }
-
-            //If July 4th hasn't occurred yet, let's check for it, otherwise ignore.
+            //We're going to assume that if July 4th of the checkout year has passed, we're not going to encounter it.
+            //i.e. the rental will never be > 184 days (Jan01 - July4). If July 4th hasn't occurred yet, let's check for it, otherwise ignore.
             if (!checkoutDate.isAfter(julyFourthObservanceCheckoutYear)) {
                 //Once again, not efficient, but it works and is sufficient for this exercise.
                 for(int i = 0; !checkoutDate.plusDays(i).isEqual(returnDate); i++){
                     if(checkoutDate.plusDays(i).isEqual(julyFourthObservanceCheckoutYear)){
+                        chargeDays--;
+                    }
+                }
+            }
+
+            //Labor Day - First Monday in September
+            LocalDate laborDay = null;
+            for(int i=1; i<8; i++){
+                if( LocalDate.parse("09/0"+i+"/" + checkoutYearYY, dtf).getDayOfWeek() == DayOfWeek.MONDAY){
+                    laborDay = LocalDate.parse("09/0"+i+"/" + checkoutYearYY, dtf);
+                }
+            }
+            //We're going to make the same assumption about Labor Day. If it's in the past, assume we won't encounter it.
+            if (!checkoutDate.isAfter(laborDay)) {
+                //Still not efficient, but it works and is sufficient for this exercise.
+                for(int i = 0; !checkoutDate.plusDays(i).isEqual(returnDate); i++){
+                    if(checkoutDate.plusDays(i).isEqual(laborDay)){
                         chargeDays--;
                     }
                 }
