@@ -41,6 +41,8 @@ Tool Type - The type of tool. The type also specifies the daily rental charge, a
 daily rental charge applies.
 Brand - The brand of the ladder, chain saw or jackhammer.
 
+Rental Rates
+--------------------
 +------------+-------------+---------------+---------------+---------------+
 |            | DailyCharge | WeekdayCharge | WeekendCharge | HolidayCharge |
 +------------+-------------+---------------+---------------+---------------+
@@ -52,12 +54,14 @@ Brand - The brand of the ladder, chain saw or jackhammer.
 +------------+-------------+---------------+---------------+---------------+
 
 Holidays
+--------------------
 There are only two (2) holidays in the calendar:
 ● Independence Day, July 4th - If falls on weekend, it is observed on the closest weekday (if Sat,
 then Friday before, if Sunday, then Monday after)
 ● Labor Day - First Monday in September
 
 Checkout
+--------------------
 Checkout requires the following information to be provided:
 ● Tool code - See tool table above
 ● Rental day count - The number of days for which the customer wants to rent the tool. (e.g. 4
@@ -85,7 +89,6 @@ rounded half up to cents.
 ● Final charge - Calculated as pre-discount charge - discount amount.
 
 
-
 Rental Agreement should include a method that can print the above values as text to the console like
 this:
 Tool code: LADW
@@ -97,7 +100,9 @@ with formatting as follows:
 ● Currency $9,999.99
 ● Percent 99%
 
+
 Tests
+--------------------
 Your code must include JUnits to prove your solution is correct.
 The proof should include the following scenarios:
 +--------------+--------+--------+--------+--------+--------+--------+
